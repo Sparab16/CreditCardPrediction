@@ -1,0 +1,30 @@
+2021-10-24/18:11:34		Start of the validation on files for training
+2021-10-24/19:10:48		Start of the validation on files for training
+2021-10-24/19:13:46		Start of the validation on files for training
+2021-10-24/19:19:28		Start of the validation on files for training
+2021-10-24/19:21:14		Start of the validation on files for training
+2021-10-24/19:22:30		Start of the validation on files for training
+2021-10-24/19:22:31		Raw Data Validation Complete!!
+2021-10-24/19:22:31		Starting Data Transformation
+2021-10-24/19:22:31		Data Transformation is Completed
+2021-10-24/19:22:31		Creating Training DatabaseTraining and tables on the basis of the given schema
+2021-10-24/19:49:07		Start of the validation on files for training
+2021-10-24/19:49:07		Raw Data Validation Complete!!
+2021-10-24/19:49:07		Starting Data Transformation
+2021-10-24/19:49:07		Data Transformation is Completed
+2021-10-24/19:49:07		Creating Training DatabaseTraining and tables on the basis of the given schema
+2021-10-24/19:53:01		Start of the validation on files for training
+2021-10-24/19:53:01		Raw Data Validation Complete!!
+2021-10-24/19:53:01		Starting Data Transformation
+2021-10-24/19:53:01		Data Transformation is Completed
+2021-10-24/19:53:01		Creating Training DatabaseTraining and tables on the basis of the given schema
+2021-10-24/20:08:12		Start of the validation on files for training
+2021-10-24/20:08:53		Raw Data Validation Complete!!
+2021-10-24/20:08:56		Starting Data Transformation
+2021-10-24/20:11:22		Data Transformation is Completed
+2021-10-24/20:11:24		Creating Training DatabaseTraining and tables on the basis of the given schema
+2021-10-24/20:12:44		Start of the validation on files for training
+2021-10-24/20:12:48		Raw Data Validation Complete!!
+2021-10-24/20:12:48		Starting Data Transformation
+2021-10-24/20:12:48		Data Transformation is Completed
+2021-10-24/20:12:48		Creating Training DatabaseTraining and tables on the basis of the given schema
