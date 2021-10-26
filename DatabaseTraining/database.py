@@ -27,13 +27,13 @@ class Database_Operation:
         '''
         connection = None
         try:
-            self.file_object = open(self.current_directory + 'Database_Operation.txt', 'a+')
             connection = self.dataBaseConnection(db_name)
             cursor = connection.cursor()
 
             # Check if the database already exists
             cursor.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name ='Good_Raw_Data'")
             if cursor.fetchone()[0] == 1:
+                self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
                 self.logger.log(self.file_object, 'Tables created successfully!')
                 self.logger.log(self.file_object, 'Closed {} database succesfully'.format(db_name))
 
@@ -49,11 +49,12 @@ class Database_Operation:
                     except:
                         connection.execute('CREATE TABLE Good_Raw_Data ({column_name} {dataType})'.format(column_name=key, dataType=type))
 
+                self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
                 self.logger.log(self.file_object, 'Tables Created Succesfully!')
                 self.logger.log(self.file_object, 'Closed {} database succesfully'.format(db_name))
 
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Database_Operation.txt', 'a+')
+            self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
             self.logger.log(self.file_object, 'Error while creating the table in db {}'.format(str(e)))
             raise 'database.py.CreateTableDb: '+ str(e)
 
@@ -73,11 +74,11 @@ class Database_Operation:
         '''
         try:
             conn = sqlite3.connect(self.path + db_name + '.db')
-            self.file_object = open(self.current_directory + 'Database_Operation.txt', 'a+')
-            self.logger.log(self.file_object, 'DatabaseTraining {} opened successfully'.format(db_name))
+            self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
+            self.logger.log(self.file_object, 'Database {} opened successfully'.format(db_name))
             return conn
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Database_Operation.txt', 'a+')
+            self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
             self.logger.log(self.file_object, 'Error while connecting to the database {}'.format(str(e)))
             raise 'database.py.dataBaseConnection: '+ str(e)
         finally:
@@ -92,7 +93,6 @@ class Database_Operation:
         '''
         connection = None
         try:
-            self.file_object = open(self.current_directory + 'Database_Operation.txt', 'a+')
             connection = self.dataBaseConnection(db_name)
             training_file = [_ for _ in os.listdir(self.good_file_path)]
 
@@ -106,13 +106,14 @@ class Database_Operation:
                         for list in line[1]:
                             try:
                                 connection.execute('INSERT INTO Good_Raw_Data values ({values})'.format(values=(list)))
+                                self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
                                 self.logger.log(self.file_object, 'File loaded succesfully {}'.format(file_name))
                                 connection.commit()
                             except Exception as e:
                                 raise e
 
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Database_Operation.txt', 'a+')
+            self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
             self.logger.log(self.file_object, 'Error while creating table {}'.format(str(e)))
             connection.rollback()
             raise 'database.py.insertIntoDatabase: '+ str(e)
@@ -131,7 +132,7 @@ class Database_Operation:
         '''
         connection = None
         try:
-            self.file_object = open(self.current_directory + 'Database_Operation.txt', 'a+')
+            self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
             self.fileFromDb = 'Training_FileFromDB/'
             self.file_name = 'InputFile.csv'
 
@@ -149,18 +150,18 @@ class Database_Operation:
             if not os.path.isdir(self.fileFromDb):
                 os.makedirs(self.fileFromDb)
 
-            # Open CSV file for writing
-            with open(self.fileFromDb + self.file_name, 'w', newline='') as file:
-                csvFile = csv.writer(file, delimiter = ',', lineterminator='\r\n', quoting=csv.QUOTE_ALL, escapechar='\\')
+            # Open CSV file for writing.
+            csvFile = csv.writer(open(self.fileFromDb + self.file_name, 'w', newline=''),delimiter=',', lineterminator='\r\n',quoting=csv.QUOTE_ALL, escapechar='\\')
 
             # Add the headers and data to the CSV file.
             csvFile.writerow(headers)
-            csvFile.writerow(results)
-            file.close()
+            csvFile.writerows(results)
+
+            self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
             self.logger.log(self.file_object, 'File Exported Succesfully')
 
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Database_Operation.txt', 'a+')
+            self.file_object = open(self.current_directory + '/Database_Operation.txt', 'a+')
             self.logger.log(self.file_object, 'File Exporting Failed {}'.format(str(e)))
             raise e
         finally:

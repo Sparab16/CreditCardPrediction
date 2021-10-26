@@ -67,7 +67,7 @@ class Train_Validation:
             # 10. Exporting the data in table to csv file
             self.database.selectingDataFromDbIntoCSV('Training')
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Train_Validation_Log.txt', 'a+')
+            self.file_object = open(self.current_directory + '/Train_Validation_Log.txt', 'a+')
             self.logger.log(self.file_object, 'Error in Validation {}'.format(str(e)))
             raise 'train_validation.train_validation: '+ str(e)
         finally:
