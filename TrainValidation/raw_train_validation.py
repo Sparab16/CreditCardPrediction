@@ -15,7 +15,7 @@ class Raw_Train_Validation:
         self.directory = path
         self.schema_path = 'schema_training.json'
         self.current_directory = os.getcwd()
-        self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+        self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
         self.logger = App_Logger()
 
     def deleteExistingTrainFolder(self):
@@ -29,10 +29,10 @@ class Raw_Train_Validation:
             path = 'Training_Raw_Files_Validated/'
             if os.path.isdir(path + 'Good_Raw/'):
                 shutil.rmtree(path + 'Good_Raw/')
-                self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+                self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
                 self.logger.log(self.file_object, 'Good Raw directory is deleted successfully')
         except Exception as e:
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error while deleting directory {}'.format(str(e)))
             raise 'raw_train_validation.deleteExistingTrainFolder: '+ str(e)
         finally:
@@ -49,7 +49,7 @@ class Raw_Train_Validation:
             if not os.path.isdir(path):
                 os.makedirs(path)
         except Exception as e:
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error while creating directory {}'.format(str(e)))
             self.file_object.close()
             raise 'raw_train_validation.createDirectoryTrainFolder: ' + str(e)
@@ -62,7 +62,7 @@ class Raw_Train_Validation:
         '''
         try:
             # Open the schema file for reading the values
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Opening the schema file for reading operation')
             with open(self.schema_path) as schema_file:
                 schema = json.load(schema_file)
@@ -79,7 +79,7 @@ class Raw_Train_Validation:
             return length_date_stamp, length_time_stamp, col_names, no_columns
 
         except Exception as e:
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, str(e))
             raise e
         finally:
@@ -116,7 +116,7 @@ class Raw_Train_Validation:
             # Iterate over through the training files for validation
             training_files = [_ for _ in os.listdir(self.directory)]
 
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
 
             for filename in training_files:
                 if (re.match(regex, filename)):
@@ -132,7 +132,7 @@ class Raw_Train_Validation:
                     self.logger.log(self.file_object, 'Invalid File Name!! {}'.format(filename))
 
         except Exception as e:
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred while validating the filenames {}'.format(str(e)))
             raise 'raw_train_validation.validateFile: ' + str(e)
 
@@ -147,7 +147,7 @@ class Raw_Train_Validation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Column length validation started')
 
             for file_name in os.listdir('Training_Raw_Files_Validated/Good_Raw/'):
@@ -158,7 +158,7 @@ class Raw_Train_Validation:
             self.logger.log(self.file_object, 'Column Length Validation is completed')
 
         except Exception as e:
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred in Validating columns length {}'.format(str(e)))
             raise 'raw_train_validation.validateColumnLength: ' + str(e)
         finally:
@@ -172,7 +172,7 @@ class Raw_Train_Validation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Missing Values Validation Started')
 
             for file_name in os.listdir('Training_Raw_Files_Validated/Good_Raw/'):
@@ -191,7 +191,7 @@ class Raw_Train_Validation:
                     csv.to_csv("Training_Raw_Files_Validated/Good_Raw/" + file_name, index=None, header=True)
 
         except Exception as e:
-            self.file_object = open(self.current_directory + '/Raw_Train_Validation.txt', 'a+')
+            self.file_object = open('Logs/Raw_Train_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred while Validating the missing values {}'.format(str(e)))
             raise 'raw_train_validation.validateMissingValues: ' + str(e)
         finally:

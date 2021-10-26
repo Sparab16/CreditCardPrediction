@@ -13,7 +13,7 @@ class TrainModel:
     def __init__(self):
         self.training_file = 'Training_FileFromDB/InputFile.csv'
         self.current_directory = os.getcwd()
-        self.file_object = open(self.current_directory + "/TrainingModel.txt", 'a+')
+        self.file_object = open("Logs/TrainingModel.txt", 'a+')
         self.logger = App_Logger()
 
     def trainingModel(self):
@@ -23,7 +23,7 @@ class TrainModel:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open(self.current_directory + "/TrainingModel.txt", 'a+')
+            self.file_object = open("Logs/TrainingModel.txt", 'a+')
             self.logger.log(self.file_object, 'Storing the data from csv file to pandas dataframe')
 
             # 1. Storing the CSV file in pandas dataframe
@@ -83,7 +83,7 @@ class TrainModel:
             self.logger.log(self.file_object, 'Successful End of Training')
 
         except Exception as e:
-            self.file_object = open(self.current_directory + "/TrainingModel.txt", 'a+')
+            self.file_object = open("Logs/TrainingModel.txt", 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'training_model.py.trainingModel: ' + str(e)
 

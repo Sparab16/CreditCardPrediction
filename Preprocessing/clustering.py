@@ -12,7 +12,7 @@ class KMeansClustering:
 
     def __init__(self):
         self.current_directory = os.getcwd()
-        self.file_object = open('PreprocessorLogs/Clustering.txt', 'a+')
+        self.file_object = open('Logs/Clustering.txt', 'a+')
         self.logger = App_Logger()
 
     def elbow_plot(self, data):
@@ -24,7 +24,7 @@ class KMeansClustering:
         '''
 
         try:
-            self.file_object = open('PreprocessorLogs/Clustering.txt', 'a+')
+            self.file_object = open('Logs/Clustering.txt', 'a+')
             self.logger.log(self.file_object, 'Entered the elbow_plot method of the KMeansClustering class')
             wcss=[] # initializing an empty list
 
@@ -34,10 +34,10 @@ class KMeansClustering:
                 kmeans.fit(data)
                 wcss.append(kmeans.inertia_)
 
-            plt.plot(range(1, 11), wcss)
-            plt.title('The Elbow Plot')
-            plt.xlabel('Number of clusters')
-            plt.ylabel('WCSS')
+            # plt.plot(range(1, 11), wcss)
+            # plt.title('The Elbow Plot')
+            # plt.xlabel('Number of clusters')
+            # plt.ylabel('WCSS')
             #plt.show()
             plt.savefig('K_Means_ElbowPlot/K-Means_Elbow.PNG') # saving the elbow plot locally
 
@@ -48,7 +48,7 @@ class KMeansClustering:
             return self.kn.knee
 
         except Exception as e:
-            self.file_object = open('PreprocessorLogs/Clustering.txt', 'a+')
+            self.file_object = open('Logs/Clustering.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'clustering.py.elbow_plot: ' + str(e)
         finally:
@@ -63,7 +63,7 @@ class KMeansClustering:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('PreprocessorLogs/Clustering.txt', 'a+')
+            self.file_object = open('Logs/Clustering.txt', 'a+')
             self.logger.log(self.file_object, 'Entered the create_clusters method of the KMeansClustering class')
 
             kmeans = KMeans(n_clusters=no_clusters, init='k-means++', random_state=42)
@@ -81,7 +81,7 @@ class KMeansClustering:
             return data
 
         except Exception as e:
-            self.file_object = open('PreprocessorLogs/Clustering.txt', 'a+')
+            self.file_object = open('Logs/Clustering.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'clustering.py.create_clusters: ' + str(e)
         finally:

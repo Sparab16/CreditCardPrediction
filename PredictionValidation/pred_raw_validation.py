@@ -15,7 +15,7 @@ class PredictionDataValidation:
         self.current_directory = os.getcwd()
         self.directory = path
         self.schema_path = 'schema_prediction.json'
-        self.file_object = open(self.current_directory + '/Pred_Raw_Validation.txt', 'a+')
+        self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
         self.logger = App_Logger()
 
     def deletePredictionFile(self):
@@ -44,7 +44,7 @@ class PredictionDataValidation:
         '''
         try:
             # Open the schema file for reading the values
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Opening the schema file for reading operation')
 
             with open(self.schema_path) as schema_file:
@@ -61,7 +61,7 @@ class PredictionDataValidation:
             return length_date_stamp, length_time_stamp, col_names, no_columns
 
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, str(e))
             raise e
         finally:
@@ -88,7 +88,7 @@ class PredictionDataValidation:
             # Iterate over through the training files for validation
             prediction_files = [_ for _ in os.listdir(self.directory)]
 
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
 
             for filename in prediction_files:
                 if (re.match(regex, filename)):
@@ -104,7 +104,7 @@ class PredictionDataValidation:
                     self.logger.log(self.file_object, 'Invalid File Name!! {}'.format(filename))
 
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred while validating the filenames {}'.format(str(e)))
             raise 'pred_raw_validation.py.validateFile: ' + str(e)
 
@@ -122,7 +122,7 @@ class PredictionDataValidation:
             if not os.path.isdir(path):
                 os.mkdir(path)
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error while deleting directory {}'.format(str(e)))
             self.file_object.close()
             raise 'pred_raw_validation.py.createDirectoryTrainFolder: ' + str(e)
@@ -138,10 +138,10 @@ class PredictionDataValidation:
             path = 'Prediction_Raw_Files_Validated/'
             if os.path.isdir(path + 'Good_Raw/'):
                 shutil.rmtree(path + 'Good_Raw/')
-                self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+                self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
                 self.logger.log(self.file_object, 'Good Raw directory is deleted successfully')
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error while deleting directory {}'.format(str(e)))
             raise 'pred_raw_validation.py.deleteExistingTrainFolder: ' + str(e)
         finally:
@@ -155,7 +155,7 @@ class PredictionDataValidation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Column length validation started')
 
             for file_name in os.listdir('Prediction_Raw_Files_Validated/Good_Raw/'):
@@ -166,7 +166,7 @@ class PredictionDataValidation:
             self.logger.log(self.file_object, 'Column Length Validation is completed')
 
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred in Validating columns length {}'.format(str(e)))
             raise 'pred_raw_validation.py.validateColumnLength: ' + str(e)
 
@@ -181,7 +181,7 @@ class PredictionDataValidation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Missing Values Validation Started')
 
             for file_name in os.listdir('Prediction_Raw_Files_Validated/Good_Raw/'):
@@ -199,7 +199,7 @@ class PredictionDataValidation:
                     csv.to_csv("Prediction_Raw_Files_Validated/Good_Raw/" + file_name, index=None, header=True)
 
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Pred_Raw_Validation.txt', 'a+')
+            self.file_object = open('Logs/Pred_Raw_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred while Validating the missing values {}'.format(str(e)))
             raise 'pred_raw_validation.py.validateMissingValues: ' + str(e)
         finally:

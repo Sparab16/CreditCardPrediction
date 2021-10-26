@@ -12,7 +12,7 @@ class Preprocessor:
 
     def __init__(self):
         self.current_directory = os.getcwd()
-        self.file_object = open(self.current_directory + '/Preprocessing.txt', 'a+')
+        self.file_object = open('Logs/Preprocessing.txt', 'a+')
         self.logger = App_Logger()
 
     def separate_label_feature(self, data, label_column_name):
@@ -24,7 +24,7 @@ class Preprocessor:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open(self.current_directory + '/Preprocessing.txt', 'a+')
+            self.file_object = open('Logs/Preprocessing.txt', 'a+')
             self.logger.log(self.file_object,'Entered the separate_label_feature method of the Preprocessor class')
 
             # Drop the target column
@@ -52,7 +52,7 @@ class Preprocessor:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open(self.current_directory + '/Preprocessing.txt', 'a+')
+            self.file_object = open('Logs/Preprocessing.txt', 'a+')
             self.logger.log(self.file_object, 'Entered the is_null_present method of the Preprocessor class')
 
             self.cols_with_missing_values = []
@@ -67,7 +67,7 @@ class Preprocessor:
             self.logger.log(self.file_object,'Finding missing values is a success. Exited the is_null_present method of the Preprocessor class')
             return self.null_counts, self.cols_with_missing_values
         except Exception as e:
-            self.file_object = open(self.current_directory + '/Preprocessing.txt', 'a+')
+            self.file_object = open('Logs/Preprocessing.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'preprocessing.py.is_null_present: ' + str(e)
         finally:
@@ -81,7 +81,7 @@ class Preprocessor:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open(self.current_directory + '/Preprocessing.txt', 'a+')
+            self.file_object = open('Logs/Preprocessing.txt', 'a+')
             self.logger.log(self.file_object,'Entered the scale_numerical_columns method of the Preprocessor class')
 
             num_df = data.select_dtypes(include=['int64']).copy()
@@ -92,7 +92,7 @@ class Preprocessor:
             return scaled_df
 
         except Exception as e:
-            self.file_object = open(self.current_directory + '/Preprocessing.txt', 'a+')
+            self.file_object = open('Logs/Preprocessing.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'preprocessing.py.scale_numerical_columns: '+ str(e)
         finally:

@@ -10,7 +10,7 @@ class FileOperation:
 
     def __init__(self):
         self.current_directory = os.getcwd()
-        self.file_object = open('FileOperationLogs/FileOperations.txt', 'a+')
+        self.file_object = open('Logs/FileOperations.txt', 'a+')
         self.logger = App_Logger()
         self.model_directory = 'models/'
 
@@ -23,7 +23,7 @@ class FileOperation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('FileOperationLogs/FileOperations.txt', 'a+')
+            self.file_object = open('Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Entered the save_model method of the File_Operation class')
 
             path = os.path.join(self.model_directory + filename)
@@ -33,7 +33,7 @@ class FileOperation:
                 shutil.rmtree(self.model_directory)
 
             # Create the directory with that path
-            os.mkdir(path)
+            os.makedirs(path)
 
             # Saving the model
             with open(path + '/' + filename + '.sav', 'wb') as file:
@@ -42,7 +42,7 @@ class FileOperation:
             self.logger.log(self.file_object,'Model File '+filename+' saved. Exited the save_model method of the Model_Finder class')
 
         except Exception as e:
-            self.file_object = open('FileOperationLogs/FileOperations.txt', 'a+')
+            self.file_object = open('Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'file_operations.py.save_model: '+ str(e)
         finally:
@@ -56,7 +56,7 @@ class FileOperation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('FileOperationLogs/FileOperations.txt', 'a+')
+            self.file_object = open('Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Entered the load_model method of the File_Operation class')
 
             with open(self.model_directory + filename + '/' + filename + '.sav') as model:
@@ -64,7 +64,7 @@ class FileOperation:
                 return pickle.load(model)
 
         except Exception as e:
-            self.file_object = open('FileOperationLogs/FileOperations.txt', 'a+')
+            self.file_object = open('Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'file_operations.py.load_model: ' + str(e)
 
@@ -79,7 +79,7 @@ class FileOperation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('FileOperationLogs/FileOperations.txt', 'a+')
+            self.file_object = open('Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object,'Entered the find_correct_model_file method of the File_Operation class')
 
             # Iterate through the all the model files
@@ -89,7 +89,7 @@ class FileOperation:
                     return file.split('.')[0]
 
         except Exception as e:
-            self.file_object = open('FileOperationLogs/FileOperations.txt', 'a+')
+            self.file_object = open('Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'file_operations.py.find_correct_model_file: ' + str(e)
 

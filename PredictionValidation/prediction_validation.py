@@ -70,7 +70,7 @@ class PredictionValidation:
             self.database.selectingDataFromDbIntoCSV('Prediction')
 
         except Exception as e:
-            self.file_object = open(self.current_directory + 'Prediction_Validation_Log.txt', 'a+')
+            self.file_object = open('Logs/Prediction_Validation_Log.txt', 'a+')
             self.logger.log(self.file_object, 'Error in Validation {}'.format(str(e)))
             raise 'prediction_validation.py.prediction_validation: '+ str(e)
         finally:
