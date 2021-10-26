@@ -1,2 +1,10 @@
 .idea
 __pycache__
+Training_DatabaseTraining.db
+Training_FileFromDB/InputFile.csv
+Training_Batch_Files
+Prediction_Batch_files
+models
+Logs
+K_Means_ElbowPlot/K-Means_Elbow.PNG
+Documentation
