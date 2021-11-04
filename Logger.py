@@ -1,6 +1,7 @@
 from datetime import datetime
 
-class App_Logger:
+
+class AppLogger:
     def log(self, file_object, log_message):
         self.now = datetime.now()
         self.date = self.now.date()
