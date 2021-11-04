@@ -2,7 +2,7 @@ import os
 from TrainValidation.raw_train_validation import Raw_Train_Validation
 from TrainValidation.data_transform_training import Data_Transform
 from DatabaseTraining.database import Database_Operation
-from Logger import App_Logger
+from Logger import AppLogger
 
 class Train_Validation:
     def __init__(self, path):
@@ -10,8 +10,8 @@ class Train_Validation:
         self.data_transform = Data_Transform()
         self.database = Database_Operation()
         self.current_directory = os.getcwd()
-        self.file_object = open('Logs/Train_Validation_Log.txt', 'a+')
-        self.logger = App_Logger()
+        self.file_object = open('Training_Logs/Train_Validation_Log.txt', 'a+')
+        self.logger = AppLogger()
 
     def train_validation(self):
         '''
@@ -67,7 +67,7 @@ class Train_Validation:
             # 10. Exporting the data in table to csv file
             self.database.selectingDataFromDbIntoCSV('Training')
         except Exception as e:
-            self.file_object = open('Logs/Train_Validation_Log.txt', 'a+')
+            self.file_object = open('Training_Logs/Train_Validation_Log.txt', 'a+')
             self.logger.log(self.file_object, 'Error in Validation {}'.format(str(e)))
             raise 'train_validation.train_validation: '+ str(e)
         finally:

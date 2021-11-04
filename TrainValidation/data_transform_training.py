@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from Logger import App_Logger
+from Logger import AppLogger
 
 class Data_Transform:
     '''
@@ -9,8 +9,8 @@ class Data_Transform:
     def __init__(self):
         self.good_raw_data_path = 'Training_Raw_Files_Validated/Good_Raw'
         self.current_directory = os.getcwd()
-        self.file_object = open('Logs/Data_Transform_Training.txt', 'a+')
-        self.logger = App_Logger()
+        self.file_object = open('Training_Logs/Data_Transform_Training.txt', 'a+')
+        self.logger = AppLogger()
 
     def replaceMissingWithNull(self):
         '''
@@ -19,14 +19,14 @@ class Data_Transform:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('Logs/Data_Transform_Training.txt', 'a+')
+            self.file_object = open('Training_Logs/Data_Transform_Training.txt', 'a+')
             training_file = [_ for _ in os.listdir(self.good_raw_data_path)]
             for file_name in training_file:
                 data = pd.read_csv(self.good_raw_data_path + '/' + file_name)
                 data.to_csv(self.good_raw_data_path + '/' + file_name, index=None, header=True)
                 self.logger.log(self.file_object, 'Quotes Added Successfully!! {}'.format(file_name))
         except Exception as e:
-            self.file_object = open('Logs/Data_Transform_Training.txt', 'a+')
+            self.file_object = open('Training_Logs/Data_Transform_Training.txt', 'a+')
             self.logger.log(self.file_object, 'Data Transformation failed because {}'.format(str(e)))
             raise e
         finally:
