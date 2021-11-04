@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from FileModel.file_operation import FileOperation
 from Preprocessing.preprocessing import Preprocessor
-from Logger import App_Logger
+from Logger import AppLogger
 from PredictionValidation.pred_raw_validation import PredictionDataValidation
 
 
@@ -11,7 +11,7 @@ class Predict:
     def __init__(self,path):
         self.prediction_file = 'Prediction_FileFromDB/InputFile.csv'
         self.file_object = open("Prediction_Logs/predict.txt", 'a+')
-        self.logger = App_Logger()
+        self.logger = AppLogger()
         self.pred_data_val = PredictionDataValidation(path)
 
     def predictionFromModel(self):
@@ -29,20 +29,17 @@ class Predict:
             self.logger.log(self.file_object,'Start of Prediction')
 
             # Storing the CSV file in pandas dataframe
-            data = pd.read_csv(self.prediction_file)
+            X = pd.read_csv(self.prediction_file)
             self.logger.log(self.file_object, 'Data load succesfully inside the dataframe')
 
             preprocessor = Preprocessor()
 
             # Check if missing values are present in the dataset
-            is_null_present, cols_with_missing_values = preprocessor.is_null_present(data)
+            # is_null_present, cols_with_missing_values = preprocessor.is_null_present(data)
 
             # # if missing values are there, replace them appropriately.
             # if (is_null_present):
             #     data = preprocessor.impute_missing_values(data, cols_with_missing_values)  # missing value imputation
-
-            # Proceeding with more data pre-processing steps
-            X = preprocessor.scale_numerical_columns(data)
 
 
             file_loader = FileOperation()
@@ -65,17 +62,26 @@ class Predict:
 
                 cluster_data = cluster_data.drop(['clusters'],axis=1)
 
+                # Scaling the X data
+                scaled_cluster_data = preprocessor.scale_numerical_columns(cluster_data)
+
                 # Finding the correct ML model with respect to its cluster number
                 model_name = file_loader.find_correct_model_file(i)
 
                 # Load that model in the memory
                 model = file_loader.load_model(model_name)
+                print(scaled_cluster_data, model)
 
                 # Use the model above for the prediction
-                result.append(model.predict(cluster_data))
-                # result = (model.predict(cluster_data))
+                prediction = model.predict(scaled_cluster_data)
+                cluster_data['Predictions'] = prediction
 
-            final = pd.DataFrame(list(zip(result)),columns=['Predictions'])
+                result.append(pd.DataFrame(cluster_data))
+
+
+            final = result
+            # final = pd.DataFrame(result)
+            # final = pd.DataFrame(list(zip(result)),columns=['Predictions'])
             path="Prediction_Output_File/FinalPredictions.csv"
 
             # Converting the prediction into the csv format
