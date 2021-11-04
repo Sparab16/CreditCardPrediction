@@ -3,7 +3,7 @@ import os
 from PredictionValidation.pred_raw_validation import PredictionDataValidation
 from PredictionValidation.data_transform_prediction import DataTransformPredict
 from DatabasePrediction.database import Database_Operation
-from Logger import App_Logger
+from Logger import AppLogger
 
 class PredictionValidation:
 
@@ -13,7 +13,7 @@ class PredictionValidation:
         self.database = Database_Operation()
         self.current_directory = os.getcwd()
         self.file_object = open("Prediction_Logs/PredictionValidation.txt", 'a+')
-        self.logger = App_Logger()
+        self.logger = AppLogger()
 
     def prediction_validation(self):
         '''
@@ -50,7 +50,7 @@ class PredictionValidation:
 
             # 7. Creating the DatabaseTraining with the given name, if present open the connection.
             self.logger.log(self.file_object, 'Creating Training DatabaseTraining and tables on the basis of the given schema')
-            self.database.createTableDb('Training', col_names)
+            self.database.createTableDb('Prediction', col_names)
             self.logger.log(self.file_object, "Table creation Completed!!")
 
             # 8. Inserting the data into the table
@@ -70,7 +70,7 @@ class PredictionValidation:
             self.database.selectingDataFromDbIntoCSV('Prediction')
 
         except Exception as e:
-            self.file_object = open('Logs/Prediction_Validation_Log.txt', 'a+')
+            self.file_object = open('Prediction_Logs/Prediction_Validation.txt', 'a+')
             self.logger.log(self.file_object, 'Error in Validation {}'.format(str(e)))
             raise 'prediction_validation.py.prediction_validation: '+ str(e)
         finally:
