@@ -17,7 +17,6 @@ The data contains 32561 instances with the following attributes:
 7. BILL_AMT1 to BILL_AMT6: Amount of bill statements
 8. PAY_AMT1 to PAY_AMT6: Amount of previous payments
 
-<b>Target Label: </b>
-Whether a person shall default in the credit card payment or not
-9. default payment next month: Yes = 1, No = 0.
+9. <b>Target Label: </b>
+default payment next month: Yes = 1, No = 0. Whether a person shall default in the credit card payment or not 
 
