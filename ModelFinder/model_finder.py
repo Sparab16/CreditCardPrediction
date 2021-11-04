@@ -3,7 +3,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score
 from sklearn.naive_bayes import GaussianNB
 from xgboost import XGBClassifier
 import os
-from Logger import App_Logger
+from Logger import AppLogger
 
 class ModelFinder:
     '''
@@ -12,8 +12,8 @@ class ModelFinder:
 
     def __init__(self):
         self.current_directory = os.getcwd()
-        self.file_object = open('Logs/ModelFinder.txt', 'a+')
-        self.logger = App_Logger()
+        self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
+        self.logger = AppLogger()
         self.gnb = GaussianNB()
         self.xgb = XGBClassifier(objective='binary:logistic', n_jobs=-1)
 
@@ -27,7 +27,7 @@ class ModelFinder:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('Logs/ModelFinder.txt', 'a+')
+            self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
             self.logger.log(self.file_object,'Entered the get_best_params_for_xgboost method of the Model_Finder class')
 
             # initializing with different combination of parameters
@@ -60,7 +60,7 @@ class ModelFinder:
             return self.xgb
 
         except Exception as e:
-            self.file_object = open('Logs/ModelFinder.txt', 'a+')
+            self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise e
         finally:
@@ -76,7 +76,7 @@ class ModelFinder:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('Logs/ModelFinder.txt', 'a+')
+            self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
             self.logger.log(self.file_object,'Entered the get_best_params_for_naive_bayes method of the Model_Finder class')
 
             # initializing with different combination of parameters
@@ -102,7 +102,7 @@ class ModelFinder:
 
 
         except Exception as e:
-            self.file_object = open('Logs/ModelFinder.txt', 'a+')
+            self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise e
         finally:
@@ -120,7 +120,7 @@ class ModelFinder:
         '''
 
         try:
-            self.file_object = open('Logs/ModelFinder.txt', 'a+')
+            self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
             self.logger.log(self.file_object,'Entered the get_best_model method of the Model_Finder class')
 
             # Create the best model for XGBoost
@@ -129,7 +129,7 @@ class ModelFinder:
 
             # Calculating the roc_auc score
             xgboost_score = roc_auc_score(test_y, prediction_xgboost)
-            self.file_object = open('Logs/ModelFinder.txt', 'a+')
+            self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
             self.logger.log(self.file_object, 'AUC for XGBoost: ' + str(xgboost_score))
 
             # Create the best model for Naive Bayes
@@ -138,7 +138,7 @@ class ModelFinder:
 
             # Calculating the roc_auc score
             naive_bayes_score = roc_auc_score(test_y, prediction_naive_bayes)
-            self.file_object = open('Logs/ModelFinder.txt', 'a+')
+            self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
             self.logger.log(self.file_object, 'AUC for RF:' + str(naive_bayes_score))
 
             # Comparing the two models with their score
@@ -148,7 +148,7 @@ class ModelFinder:
                 return 'NaiveBayes', naive_bayes
 
         except Exception as e:
-            self.file_object = open('Logs/ModelFinder.txt', 'a+')
+            self.file_object = open('Training_Logs/ModelFinder.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise e
         finally:

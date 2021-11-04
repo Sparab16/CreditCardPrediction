@@ -1,7 +1,7 @@
 import pickle
 import os
 import shutil
-from Logger import App_Logger
+from Logger import AppLogger
 
 class FileOperation:
     '''
@@ -10,8 +10,8 @@ class FileOperation:
 
     def __init__(self):
         self.current_directory = os.getcwd()
-        self.file_object = open('Logs/FileOperations.txt', 'a+')
-        self.logger = App_Logger()
+        self.file_object = open('Training_Logs/FileOperations.txt', 'a+')
+        self.logger = AppLogger()
         self.model_directory = 'models/'
 
     def save_model(self, model, filename):
@@ -23,7 +23,7 @@ class FileOperation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('Logs/FileOperations.txt', 'a+')
+            self.file_object = open('Training_Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Entered the save_model method of the File_Operation class')
 
             path = os.path.join(self.model_directory + filename)
@@ -42,7 +42,7 @@ class FileOperation:
             self.logger.log(self.file_object,'Model File '+filename+' saved. Exited the save_model method of the Model_Finder class')
 
         except Exception as e:
-            self.file_object = open('Logs/FileOperations.txt', 'a+')
+            self.file_object = open('Training_Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'file_operations.py.save_model: '+ str(e)
         finally:
@@ -56,15 +56,15 @@ class FileOperation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('Logs/FileOperations.txt', 'a+')
+            self.file_object = open('Training_Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Entered the load_model method of the File_Operation class')
 
-            with open(self.model_directory + filename + '/' + filename + '.sav') as model:
+            with open(self.model_directory + filename + '/' + filename + '.sav', 'rb') as model:
                 self.logger.log(self.file_object,'Model File ' + filename + ' loaded. Exited the load_model method of the Model_Finder class')
                 return pickle.load(model)
 
         except Exception as e:
-            self.file_object = open('Logs/FileOperations.txt', 'a+')
+            self.file_object = open('Training_Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'file_operations.py.load_model: ' + str(e)
 
@@ -79,17 +79,17 @@ class FileOperation:
         :failure: Raise Exception
         '''
         try:
-            self.file_object = open('Logs/FileOperations.txt', 'a+')
+            self.file_object = open('Training_Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object,'Entered the find_correct_model_file method of the File_Operation class')
 
             # Iterate through the all the model files
             for file in os.listdir(self.model_directory):
-                if (file.index(str(cluster_number)) != -1):
+                if (file.find(str(cluster_number)) != -1):
                     self.logger.log(self.file_object,'Exited the find_correct_model_file method of the Model_Finder class.')
                     return file.split('.')[0]
 
         except Exception as e:
-            self.file_object = open('Logs/FileOperations.txt', 'a+')
+            self.file_object = open('Training_Logs/FileOperations.txt', 'a+')
             self.logger.log(self.file_object, 'Error Occurred {}'.format(str(e)))
             raise 'file_operations.py.find_correct_model_file: ' + str(e)
 
