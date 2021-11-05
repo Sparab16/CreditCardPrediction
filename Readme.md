@@ -2,11 +2,11 @@
 
 To build a classification methodology to determine whether a person defaults the credit card payment for the next month. 
 
-### Data Description
+## Data Description
 The client will send data in multiple sets of files in batches at a given location. The data has been extracted from the census bureau. 
 The data contains 32561 instances with the following attributes:
 
-#### Features
+### Features
 
     1. LIMIT_BAL: continuous.Credit Limit of the person.
     2. SEX: Categorical: 1 = male; 2 = female
@@ -19,7 +19,7 @@ The data contains 32561 instances with the following attributes:
     9. Target Label: Whether a person shall default in the credit card payment or not. default payment next month:  Yes = 1, No = 0.
 
 
-### Data Validation 
+## Data Validation 
 
 In this step, we perform different sets of validation on the given set of training files.
 
@@ -34,7 +34,7 @@ In this step, we perform different sets of validation on the given set of traini
 
 5. **The datatype of columns** - The datatype of columns is given in the schema file. It is validated when we insert the files into Database. If the datatype is wrong, then the file is removed the file.
 
-### Data Insertion in Database
+## Data Insertion in Database
  
 1) **Database Creation and connection** - Create a database with the given name passed. If the database has already been created, open a connection to the database.
 
@@ -44,7 +44,7 @@ In this step, we perform different sets of validation on the given set of traini
 
 3) **Insertion of files in the table** - All the files in the "Good_Raw" are inserted in the above-created table. If any file has invalid data type in any of the columns, the file is not loaded in the table.
 
-### Model Training 
+## Model Training 
 1) **Data Export from Db** - The data in a stored database is exported as a CSV file to be used for model training.
 
 
@@ -56,7 +56,7 @@ The Kmeans model is trained over preprocessed data, and the model is saved for f
 
 __Note__: The same steps are followed for the Prediction Data
 
-### Run Locally
+## Run Locally
 
 1. Initialize the empty git repo. If you don't have the git installed on your machine please download the git using this link.
     <a href="https://git-scm.com/downloads" target="_blank">Download Git</a>
@@ -116,9 +116,9 @@ Add the content-type to application/json in the Postman app.
 
     <img src="./Screenshots/predict.png" width='400px'>
 
-### Usage
+## Usage
 
-#### Development
+### Development
 
 Want to contribute? Great!
 
@@ -145,9 +145,9 @@ $ git push origin new-feature
 
 <li> Create a pull request
 
-### Tech Stack
+## Tech Stack
 
-#### Project is built with:-
+### Project is built with:-
 
 - <a href='https://www.python.org/' target="_blank">Python</a>
 - <a href='https://flask.palletsprojects.com/en/2.0.x/' target="_blank">Flask</a>
@@ -161,7 +161,7 @@ $ git push origin new-feature
 - <a href='https://www.sqlite.org/index.html' target="_blank">Sqlite3</a>
 
   
-### Authors
+## Authors
 
 - [@Shreyas](https://github.com/Sparab16)
 
@@ -171,7 +171,7 @@ $ git push origin new-feature
 ### 🔗 Links
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shrey16/)
 
-### License
+## License
 
 MIT License
 
