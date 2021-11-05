@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from FileModel.file_operation import FileOperation
 from Preprocessing.preprocessing import Preprocessor
 from Logger import AppLogger
@@ -8,25 +7,25 @@ from PredictionValidation.pred_raw_validation import PredictionDataValidation
 
 class Predict:
 
-    def __init__(self,path):
+    def __init__(self, path):
         self.prediction_file = 'Prediction_FileFromDB/InputFile.csv'
         self.file_object = open("Prediction_Logs/predict.txt", 'a+')
         self.logger = AppLogger()
         self.pred_data_val = PredictionDataValidation(path)
 
     def predictionFromModel(self):
-        '''
+        """
         Description: This methods predicts the labels using the ML algorithm and save that to the output file
         :return: Final Prediction Output CSV
         :failure: Raise Exception
-        '''
+        """
         try:
             self.file_object = open("Prediction_Logs/predict.txt", 'a+')
 
             # Deletes the existing prediction file from the last run
             self.pred_data_val.deletePredictionFile()
 
-            self.logger.log(self.file_object,'Start of Prediction')
+            self.logger.log(self.file_object, 'Start of Prediction')
 
             # Storing the CSV file in pandas dataframe
             X = pd.read_csv(self.prediction_file)
@@ -41,7 +40,6 @@ class Predict:
             # if (is_null_present):
             #     data = preprocessor.impute_missing_values(data, cols_with_missing_values)  # missing value imputation
 
-
             file_loader = FileOperation()
             kmeans = file_loader.load_model('KMeans')
 
@@ -52,15 +50,16 @@ class Predict:
             X['clusters'] = clusters
 
             # Getting the unique clusters
-            clusters=X['clusters'].unique()
+            clusters = X['clusters'].unique()
 
             #  Finding the best ML algorithm for the individual cluster
             result = []
             for i in clusters:
                 # Filter the data for the one cluster
-                cluster_data= X[X['clusters']==i]
+                cluster_data = X[X['clusters'] == i]
 
-                cluster_data = cluster_data.drop(['clusters'],axis=1)
+                # Dropping the cluster column since it is not required for predictions
+                cluster_data = cluster_data.drop(['clusters'], axis=1)
 
                 # Scaling the X data
                 scaled_cluster_data = preprocessor.scale_numerical_columns(cluster_data)
@@ -76,18 +75,23 @@ class Predict:
                 prediction = model.predict(scaled_cluster_data)
                 cluster_data['Predictions'] = prediction
 
+                # Appending the predictions as a pandas dataframe for the use in the final result
                 result.append(pd.DataFrame(cluster_data))
 
+            final = result[0]
+            # If there are more than one cluster then we need to append the results to the final dataframe
+            if len(result) > 1:
+                final = final.append(result[1:], ignore_index=True)
 
-            final = result
             # final = pd.DataFrame(result)
             # final = pd.DataFrame(list(zip(result)),columns=['Predictions'])
-            path="Prediction_Output_File/FinalPredictions.csv"
+            path = "Prediction_Output_File/FinalPredictions.csv"
 
             # Converting the prediction into the csv format
-            final.to_csv("Prediction_Output_File/FinalPredictions.csv",header=True,mode='a+') #appends result to prediction file
+            final.to_csv("Prediction_Output_File/FinalPredictions.csv", header=True,
+                         mode='a+')  # appends result to prediction file
 
-            self.logger.log(self.file_object,'End of Prediction')
+            self.logger.log(self.file_object, 'End of Prediction')
             return path
 
         except Exception as e:
