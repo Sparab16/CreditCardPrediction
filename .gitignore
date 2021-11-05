@@ -11,3 +11,6 @@ Prediction_Logs
 Training_Logs
 EDA/.ipynb_checkpoints/creditCardFraudEDA-checkpoint.ipynb
 templates
+Prediction_DatabasePrediction.db
+Prediction_FileFromDB
+Prediction_Output_File
